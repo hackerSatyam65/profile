@@ -50,7 +50,7 @@
 
     /* Header */
     header {
-      position: sticky; top: 0; z-index: 50;
+      position: sticky; top: 0; z-index: 100;
       background: var(--surface);
       border-bottom: 1px solid rgba(0,0,0,0.1);
       box-shadow: var(--shadow);
@@ -69,7 +69,11 @@
       background: linear-gradient(135deg, var(--brand), var(--accent));
       color: #fff; font-weight: 800;
     }
-    .navlinks { display: flex; gap: 10px; align-items: center; }
+
+    /* Nav links */
+    .navlinks {
+      display: flex; gap: 10px; align-items: center;
+    }
     .btn {
       padding: 8px 14px; border-radius: 8px;
       border: 1px solid rgba(0,0,0,0.1);
@@ -87,6 +91,54 @@
       display: grid; place-items: center;
       padding: 0; line-height: 1;
       transition: transform 0.3s ease;
+    }
+
+    /* Hamburger menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 30px;
+      height: 24px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      height: 3px;
+      width: 100%;
+      background: var(--text);
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translateY(8px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translateY(-8px);
+    }
+
+    /* Mobile nav */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .navlinks {
+        position: absolute;
+        top: 64px; right: 0;
+        background: var(--surface);
+        flex-direction: column;
+        width: 220px;
+        gap: 14px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+      .navlinks.show {
+        transform: translateX(0);
+      }
     }
 
     /* Hero */
@@ -148,7 +200,13 @@
           <div class="brand-subtitle">Full-Stack Developer</div>
         </div>
       </div>
-      <nav class="navlinks">
+
+      <!-- Hamburger -->
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+
+      <nav class="navlinks" id="navlinks">
         <a class="btn" href="#projects">Projects</a>
         <a class="btn" href="#experience">Experience</a>
         <a class="btn" href="#skills">Skills</a>
@@ -158,7 +216,8 @@
     </div>
   </header>
 
-  <div class="container">
+  <!-- Content sections here (same as yours)... -->
+<div class="container">
     <!-- Hero -->
     <section class="hero">
       <div>
@@ -215,7 +274,7 @@
       <div class="grid">
         <div class="card">
           <h4>Software Engineer • SOUL Ltd.</h4>
-          <p>Bhubaneswar • Jun 2023 – Present</p>
+          <p>Bhubaneswar • Jun 2023 – Jun2025</p>
           <ul><li>End-to-end development for BSABT and Park Management platforms.</li><li>Integrated payment gateway reducing failed transactions by 15%.</li><li>Led planning, demos; achieved 95% client satisfaction.</li></ul>
         </div>
         <div class="card">
@@ -248,7 +307,6 @@
       </div>
     </section>
   </div>
-
   <footer><div class="container">© <span id="year"></span> Satyam Vivek. All rights reserved.</div></footer>
 
   <script>
@@ -256,7 +314,6 @@
 
     const toggle = document.getElementById('themeToggle');
     const root = document.body;
-
     function setTheme(theme) {
       root.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
@@ -264,14 +321,20 @@
       toggle.style.transform = 'rotate(180deg)';
       setTimeout(() => toggle.style.transform = 'rotate(0deg)', 300);
     }
-
     toggle.addEventListener('click', () => {
       const current = root.getAttribute('data-theme');
       setTheme(current === 'light' ? 'dark' : 'light');
     });
-
     const saved = localStorage.getItem('theme');
     setTheme(saved ? saved : 'light');
+
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navlinks = document.getElementById('navlinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navlinks.classList.toggle('show');
+    });
   </script>
 </body>
 </html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Satyam Vivek | Full-Stack Developer</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" href="/Htmls/photos/hacker.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #f3f4f6;
+      --surface-light: #ffffff;
+      --text-light: #1f2937;
+      --muted-light: #4b5563;
+
+      --bg-dark: #111827;
+      --surface-dark: #1f2937;
+      --text-dark: #f9fafb;
+      --muted-dark: #9ca3af;
+
+      --brand: #2563eb;
+      --accent: #10b981;
+      --radius-lg: 14px;
+      --shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] {
+      --bg: var(--bg-light);
+      --surface: var(--surface-light);
+      --text: var(--text-light);
+      --muted: var(--muted-light);
+    }
+    [data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --surface: var(--surface-dark);
+      --text: var(--text-dark);
+      --muted: var(--muted-dark);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      transition: background 0.3s, color 0.3s;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    .container { width: min(1120px, 92vw); margin-inline: auto; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--surface);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      box-shadow: var(--shadow);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-name {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--brand);
+    }
+    .brand-subtitle { color: var(--muted); font-size: 0.95rem; }
+    .logo {
+      width: 42px; height: 42px; border-radius: 10px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      color: #fff; font-weight: 800;
+    }
+    .navlinks { display: flex; gap: 10px; align-items: center; }
+    .btn {
+      padding: 8px 14px; border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: var(--surface); color: var(--text);
+      font-weight: 500; transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--brand); color: #fff; }
+
+    /* Toggle button */
+    #themeToggle {
+      font-size: 1.2rem;
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: grid; place-items: center;
+      padding: 0; line-height: 1;
+      transition: transform 0.3s ease;
+    }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 60px 0 40px; align-items: center; }
+    .hero h2 { font-size: clamp(26px, 3.2vw, 42px); margin-bottom: 16px; }
+    .hero p { color: var(--muted); }
+    .badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 28px; }
+    .badge {
+      padding: 6px 12px; border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.1); background: var(--bg);
+      font-weight: 600; font-size: 0.9rem; color: var(--brand);
+    }
+
+    .heroCard {
+      background: var(--surface); border: 1px solid rgba(0,0,0,0.1);
+      border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow);
+    }
+    .statgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 10px; }
+    .stat {
+      background: var(--bg); border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px; padding: 14px; text-align: center;
+    }
+    .stat h3 { margin: 0; font-size: 1.4rem; color: var(--brand); }
+    .stat p { margin: 6px 0 0; color: var(--muted); font-size: 0.9rem; }
+
+    section { padding: 50px 0; }
+    .section-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; }
+    .title { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.3rem; color: var(--brand); }
+    .title .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .card {
+      background: var(--surface); border: 1px solid rgba(0,0,0,0.1);
+      border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); }
+
+    footer {
+      padding: 28px 0; color: var(--muted);
+      border-top: 1px solid rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .heroCard { margin-top: 20px; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">SV</div>
+        <div>
+          <div class="brand-name">Satyam Vivek</div>
+          <div class="brand-subtitle">Full-Stack Developer</div>
+        </div>
+      </div>
+      <nav class="navlinks">
+        <a class="btn" href="#projects">Projects</a>
+        <a class="btn" href="#experience">Experience</a>
+        <a class="btn" href="#skills">Skills</a>
+        <a class="btn" href="#contact">Contact</a>
+        <button class="btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <!-- <h2>Building scalable backends with <span style="color:var(--brand)">Node.js</span> and <span style="color:var(--accent)">PostgreSQL</span>.</h2> -->
+        <p>Software Engineer with 2+ years of experience delivering robust APIs, integrations, and data-driven features in Agile teams. I optimize systems for speed, reliability, and developer experience.</p>
+        <div class="badges">
+          <span class="badge">Node.js • Express</span>
+          <span class="badge">PostgreSQL • Redis</span>
+          <span class="badge">MongoDB • MySQL</span>
+          <span class="badge">REST • OAuth2 • JWT</span>
+          <span class="badge">CI/CD (Jenkins)</span>
+          <span class="badge">Jasmine • Jest</span>
+        </div>
+      </div>
+      <div class="heroCard">
+        <h3>Impact snapshot</h3>
+        <div class="statgrid">
+          <div class="stat"><h3>60%</h3><p>Route optimization</p></div>
+          <div class="stat"><h3>45%</h3><p>Delay reduction</p></div>
+          <div class="stat"><h3>10k+/mo</h3><p>Digital receipts</p></div>
+        </div>
+        <div class="statgrid">
+          <div class="stat"><h3>70%</h3><p>Booking automation</p></div>
+          <div class="stat"><h3>15m</h3><p>Wait time cut</p></div>
+          <div class="stat"><h3>95%</h3><p>Client satisfaction</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="section-title"><div class="title"><span class="dot"></span><span>Tech stack</span></div></div>
+      <div class="grid">
+        <div class="card"><h4>Back-End</h4><p>Node.js, Express.js, REST APIs, OAuth 2.0, JWT, Rate limiting</p></div>
+        <div class="card"><h4>Databases</h4><p>PostgreSQL, MongoDB, MySQL, SQL Server, Redis</p></div>
+        <div class="card"><h4>Testing & Quality</h4><p>Jasmine, Jest, Postman, Swagger/OpenAPI</p></div>
+        <div class="card"><h4>Delivery</h4><p>Git/GitHub, Webpack, CI/CD (Jenkins), Agile/Scrum</p></div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-title"><div class="title"><span class="dot"></span><span>Projects</span></div></div>
+      <div class="grid">
+        <div class="card"><h4>Park Management System</h4><p>Automated 70% of the booking flow and processed 200+ daily bookings. Integrated digital receipts (10k+/month) with 95% accuracy and optimized search to cut response times by 30% at peak.</p></div>
+        <div class="card"><h4>BSABT Bus Terminal Management</h4><p>Optimized route management by 60% and reduced commuter delays by 45%. Aggregated real-time data to cut average wait times by ~15 minutes in high-traffic areas and improved revenue visibility.</p></div>
+        <div class="card"><h4>Asset Tracking System (RFID)</h4><p>Implemented RFID-driven tracking platform reducing manual verification by ~5 hours/week. Built visual dashboards and resolved three critical issues to improve reporting accuracy.</p></div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <div class="section-title"><div class="title"><span class="dot"></span><span>Experience</span></div></div>
+      <div class="grid">
+        <div class="card">
+          <h4>Software Engineer • SOUL Ltd.</h4>
+          <p>Bhubaneswar • Jun 2023 – Present</p>
+          <ul><li>End-to-end development for BSABT and Park Management platforms.</li><li>Integrated payment gateway reducing failed transactions by 15%.</li><li>Led planning, demos; achieved 95% client satisfaction.</li></ul>
+        </div>
+        <div class="card">
+          <h4>Software Engineer (Intern) • SOUL Ltd.</h4>
+          <p>Bhubaneswar • Jan 2023 – Jun 2023</p>
+          <ul><li>Improved asset tracking accuracy addressing top error causes.</li><li>Built dashboards reducing reporting time by ~10 hours weekly.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-title"><div class="title"><span class="dot"></span><span>About</span></div></div>
+      <div class="grid">
+        <div class="card"><p>I'm a backend-leaning full-stack developer who enjoys designing clean APIs, modeling data for integrity and performance, and shipping measurable outcomes. I work closely with stakeholders to translate requirements into scalable systems.</p><p><strong>Education:</strong> B.Tech (Information Technology), KIIT University, 2019–2023.</p></div>
+        <div class="card"><h4>Highlights</h4><ul><li>Process optimization through APIs and improved code quality.</li><li>Strong collaboration: planning, demos, and client interaction.</li><li>Focus on developer experience and observability.</li></ul></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-title"><div class="title"><span class="dot"></span><span>Contact</span></div></div>
+      <div class="grid">
+        <div class="card">
+          <p><strong>Location:</strong> Bhubaneswar, Odisha</p>
+          <p><strong>Email:</strong> <a href="mailto:satyamvivek81@gmail.com">satyamvivek81@gmail.com</a></p>
+          <p><strong>Phone:</strong> <a href="tel:+917488471277">+91 74884 71277</a></p>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/satyam-vivek-43758a212/" target="_blank">satyam-vivek-43758a212</a></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer><div class="container">© <span id="year"></span> Satyam Vivek. All rights reserved.</div></footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const toggle = document.getElementById('themeToggle');
+    const root = document.body;
+
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      toggle.style.transform = 'rotate(180deg)';
+      setTimeout(() => toggle.style.transform = 'rotate(0deg)', 300);
+    }
+
+    toggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      setTheme(current === 'light' ? 'dark' : 'light');
+    });
+
+    const saved = localStorage.getItem('theme');
+    setTheme(saved ? saved : 'light');
+  </script>
+</body>
+</html>
